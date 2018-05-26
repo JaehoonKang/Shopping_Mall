@@ -17,7 +17,8 @@ function logout() {
 }
 
 const templates = {
-  skillMain: document.querySelector("#skill-main").content
+  skillMain: document.querySelector("#skill-main").content,
+  skillRegi: document.querySelector("#skill-register").content
 };
 
 function render(frag) {
@@ -29,9 +30,9 @@ function render(frag) {
 async function indexPage(){
 
   const skillFrag = document.importNode(templates.skillMain, true);
+  const skillRegi = skillFrag.querySelector('.skill-register');
 
   $(document).ready(function() {
-
     // main slider
     setInterval(function () {      
         var sliderOne = $('.slider-wrapper__slider1');
@@ -47,9 +48,28 @@ async function indexPage(){
             sliderTwo.animate({marginLeft : '-100%'}, 'slow');
         }
     }, 7000);
-});
+  });
+
+
+  skillRegi.addEventListener('click', e => {
+    skillRegister();
+  })
+
 
   render(skillFrag);
 }
+
+
+async function skillRegister() {
+
+  const frag = document.importNode(templates.skillRegi, true);
+
+  
+
+
+
+  render(frag);
+}
+
 
 indexPage();
