@@ -59,9 +59,12 @@
       </footer>
   </template>
 
+  <template id="skill-item">
+
+    
+  </template>
 
   <template id="skill-register">
-
     <div class="skill-service">
         <form class="skill-service-register">
             <div class="field">
@@ -71,8 +74,44 @@
                 </div>
               </div>
 
-            
+              <div class="field">
+                  <label class="label">서비스 타이틀</label>
+                  <div class="control">
+                    <input class="title" type="text" placeholder="Text input">
+                  </div>
+                  <p class="help">비즈니스(Excel), 디자인(Photoshop), 프로그래밍(Programming), 사진(Photography), 기타 중 선택</p>
+              </div>
 
+              <div class="field">
+                  <label class="label">서비스종류</label>
+                  <div class="control">
+                    <div class="select">
+                      <select>
+                        <option>비즈니스(엑셀,PPT)</option>
+                        <option>디자인</option>
+                        <option>프로그래밍</option>
+                        <option>사진</option>
+                        <option>창업</option>
+                        <option>기타</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="field">
+                  <label class="label">서비스 상세설명</label>
+                  <div class="control">
+                    <textarea name="description" class="textarea" placeholder="Textarea"></textarea>
+                  </div>
+                </div>
+              <div class="field is-grouped">
+                  <div class="control">
+                    <button class="button is-link">튜터되기</button>
+                  </div>
+                  <div class="control">
+                    <button class="button is-text">취소하기</button>
+                  </div>
+              </div>
         </form>
       </div>
   </template>

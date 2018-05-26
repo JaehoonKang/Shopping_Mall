@@ -64,9 +64,6 @@ async function skillRegister() {
 
   const frag = document.importNode(templates.skillRegi, true);
 
-  
-
-
 
   render(frag);
 }
