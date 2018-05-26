@@ -5,10 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>중간 프로젝트 템플릿</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
   <link rel="stylesheet" href="./index.scss">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  
 </head>
 <body>
-  <h1>중간 프로젝트 템플릿</h1>
+
+  <div class="root"></div>
+
+  <template id="skill-main">
+      <div class="container">
+
+        <nav class="nav-bar">
+          <h1 class="nav-bar__logo">Skill Logo</h1>
+          <div class="nav-bar--basic">
+            <ul class="nav-bar--basic__nav">
+              <li class="skill-intro"><a href="#">Team</a></li>
+              <li><button class="login">로그인</button></li>
+              <li><button class="logout">로그아웃</button></li>
+              <li><button class="signup">회원가입</button></li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="slider-wrapper">
+            <div class="slider-wrapper__slider1">   
+              <div class="slider-content">   
+                <h1>Global Bridge</h1>
+                <p>Gbridge는 한국인이 전세계로 진출할 수 있는 다리입니다.</p>
+                <a href="#"><button class="slider-wrapper__slider1--detail"><p>자세히 보기</p></button></a>
+              </div>
+            </div>
+
+        <div class="slider-wrapper__slider2">
+            <div class="slider-content">   
+              <h1>Global Bridge</h1>
+              <p>Gbridge는 한국인이 전세계로 진출할 수 있는 다리입니다.</p>
+              <a href="#"><button class="slider-wrapper__slider2--detail"><p>자세히 보기</p></button></a>
+            </div>
+        </div>
+      </div>
+
+      <div class="skill-skill"></div>
+
+      <footer class="contact">
+          <address class="address">
+            <span>전화: <a href="tel:01042265880">010-4226-5880</a></span>
+            <span>이메일: <a href="mailto:jhkang1015@gmail.com?subject=문의사항">jhkang1015@gmail.com</a></span>
+        </address>
+      </footer>
+  </template>
   <script src="./index.js"></script>
 </body>
 </html>
