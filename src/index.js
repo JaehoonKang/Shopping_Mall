@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const todoAPI = axios.create({
+const shopAPI = axios.create({
   baseURL: process.env.API_URL
 });
 
@@ -8,12 +8,12 @@ const rootEl = document.querySelector(".root");
 
 function login(token) {
   localStorage.setItem("token", token);
-  todoAPI.defaults.headers["Authorization"] = `Bearer ${token}`;
+  shopAPI.defaults.headers["Authorization"] = `Bearer ${token}`;
 }
 
 function logout() {
   localStorage.removeItem("token");
-  delete todoAPI.defaults.headers["Authorization"];
+  delete shopAPI.defaults.headers["Authorization"];
 }
 
 const templates = {
@@ -51,8 +51,7 @@ async function indexPage(){
     }, 7000);
   });
 
-  const res = await API_URL.get('/todos');
-  console.log(res);
+  const res = await shopAPI.get("/products?_expand=user");
 
   const skillFrag = document.importNode(templates.skillMain, true);
   const skillRegi = skillFrag.querySelector('.skill-register');
@@ -60,7 +59,6 @@ async function indexPage(){
   const intro = skillFrag.querySelector('.skill-intro');
   const login = skillFrag.querySelector('.login');
   const logout = skillFrag.querySelector('.logout');
-
 
 
   skillRegi.addEventListener('click', e => {
@@ -79,6 +77,25 @@ async function indexPage(){
     loginPage();
   });
 
+  for(const product of res.data){
+    const frag = document.importNode(templates.skillItem, true);
+    const tutorName = frag.querySelector('.skill-item__p--tutorname');
+    const productTitle= frag.querySelector('.skill-item__p--title');
+    const productPrice = frag.querySelector('.skill-item__p--price');
+    const productCount = frag.querySelector('.skill-item__p--count');
+
+    // tutorName.textContent = product.user.name;
+    productTitle.textContent= product.title;
+    productPrice.textContent = product.price;
+    productCount.textContent = product.count;
+
+
+    skillFrag.querySelector('.skill-product').appendChild(frag);
+
+  }
+
+
+
   render(skillFrag);
 }
 
@@ -94,6 +111,8 @@ async function skillRegister() {
 async function skillSignUp() {
 
   const frag = document.importNode(templates.signUp, true);
+
+  // const signRes = await shopAPI.put('/users')
 
   render(frag);
 };
