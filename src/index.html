@@ -22,10 +22,10 @@
           <h1 class="nav-bar__logo">Skill Logo</h1>
           <div class="nav-bar--basic">
             <ul class="nav-bar--basic__nav">
-              <li class="skill-intro"><a href="#">Team</a></li>
-              <li><button class="login">로그인</button></li>
+              <li class="skill-intro"><a href="#">소개</a></li>
+              <li><button class="login">튜터로그인</button></li>
               <li><button class="logout">로그아웃</button></li>
-              <li><button class="signup">회원가입</button></li>
+              <li><button class="signup">튜터회원가입</button></li>
               <li><button class="skill-register">스킬등록하기</button></li>
             </ul>
           </div>
@@ -34,16 +34,16 @@
         <div class="slider-wrapper">
             <div class="slider-wrapper__slider1">   
               <div class="slider-content">   
-                <h1>Global Bridge</h1>
-                <p>Gbridge는 한국인이 전세계로 진출할 수 있는 다리입니다.</p>
+                <h1>Skill Local</h1>
+                <p>Skill Local은 여러분의 스킬을 나눌 수 있는 공간입니다</p>
                 <a href="#"><button class="slider-wrapper__slider1--detail"><p>자세히 보기</p></button></a>
               </div>
             </div>
 
         <div class="slider-wrapper__slider2">
             <div class="slider-content">   
-              <h1>Global Bridge</h1>
-              <p>Gbridge는 한국인이 전세계로 진출할 수 있는 다리입니다.</p>
+              <h1>Skill Local</h1>
+              <p>Skill Local에서 재능과 성취감 모두 잡으세요!</p>
               <a href="#"><button class="slider-wrapper__slider2--detail"><p>자세히 보기</p></button></a>
             </div>
         </div>
@@ -61,18 +61,141 @@
 
   <template id="skill-item">
 
-    
+    <div class="skill-item">
+
+      <div class="skill-item__small-img" style="width:100px; height:100px"></div>
+      <p class="skill-time__p--tutorname"></p>
+      <p class="skill-item__p--count"></p>
+      <p class="skill-item__p--title"></p>
+      <p class="skill-item__p--price"></p>
+
+
+      <button class="skill-item__detail-btn">자세히</button>
+    </div>
+  </template>
+
+  <template id="introduction">
+
+    <h2 class="introduction-title">Skill Local는?</h2>
+    <p class="introduction-detail">Skill Local는 대도시가 아닌 소도시 대학생들이 본인의 재능 공유하는 대학생 플랫폼입니다</p>
+  </template>
+
+  <template id="skill-login">
+      <div class="field">
+          <p class="control has-icons-left has-icons-right">
+            <input class="input" type="email" placeholder="Email">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-check"></i>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="password" placeholder="Password">
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <button class="button is-success">
+              Login
+            </button>
+            <button class="button is-success">
+                돌아가기
+              </button>
+          </p>
+        </div>
+  </template>
+
+  <template id="signup">
+      <div class="field">
+          <label class="label">성함</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Text input">
+          </div>
+        </div>
+        
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" type="text" placeholder="Text input" value="bulma">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-check"></i>
+            </span>
+          </div>
+          <p class="help is-success">This username is available</p>
+        </div>
+        
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-danger" type="email" placeholder="Email input" value="abcde@abcde.com">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="icon is-small is-right">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+          </div>
+          <p class="help is-danger">This email is invalid</p>
+        </div>
+
+        <div class="field">
+            <label class="label">전화번호</label>
+            <div class="control">
+              <input class="input" type="number" placeholder="Phone Number">
+            </div>
+          </div>
+
+        <div class="file has-name">
+            <div><strong>프로필사진</strong></div>
+            <label class="file-label">
+              <input class="file-input" type="file" name="resume">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Choose a file…
+                </span>
+              </span>
+              <span class="file-name">
+                Screen Shot 2017-07-29 at 15.54.25.png
+              </span>
+            </label>
+          </div>
+        
+        <div class="field">
+          <label class="label">자기소개</label>
+          <div class="control">
+            <textarea class="textarea" placeholder="Textarea"></textarea>
+          </div>
+        </div>
+        
+      
+        
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link">회원가입</button>
+          </div>
+          <div class="control">
+            <button class="button is-text">돌아가기</button>
+          </div>
+        </div>
   </template>
 
   <template id="skill-register">
     <div class="skill-service">
         <form class="skill-service-register">
-            <div class="field">
-                <label class="label">튜터이름</label>
-                <div class="control">
-                  <input name="tutorname"class="input" type="text" placeholder="Text input">
-                </div>
-              </div>
+              <div class="skill-service-register--tutorName"></div>
 
               <div class="field">
                   <label class="label">서비스 타이틀</label>
@@ -95,6 +218,31 @@
                         <option>기타</option>
                       </select>
                     </div>
+                </div>
+              </div>
+
+                <div class="file has-name">
+                  <div>Skill 사진</div>
+                  <label class="file-label">
+                    <input class="file-input" type="file" name="resume">
+                    <span class="file-cta">
+                      <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                      </span>
+                      <span class="file-label">
+                        Choose a file…
+                      </span>
+                    </span>
+                    <span class="file-name">
+                      Screen Shot 2017-07-29 at 15.54.25.png
+                    </span>
+                  </label>
+                </div>
+
+                <div class="field">
+                  <label class="label"><strong>가격</strong></label>
+                  <div class="control">
+                    <input class="input" type="number" placeholder="Price">
                   </div>
                 </div>
 
@@ -106,7 +254,7 @@
                 </div>
               <div class="field is-grouped">
                   <div class="control">
-                    <button class="button is-link">튜터되기</button>
+                    <button class="button is-link">기술등록</button>
                   </div>
                   <div class="control">
                     <button class="button is-text">취소하기</button>
