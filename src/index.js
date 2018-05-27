@@ -6,18 +6,20 @@ const todoAPI = axios.create({
 
 const rootEl = document.querySelector(".root");
 
-// function login(token) {
-//   localStorage.setItem("token", token);
-//   todoAPI.defaults.headers["Authorization"] = `Bearer ${token}`;
-// }
+function login(token) {
+  localStorage.setItem("token", token);
+  todoAPI.defaults.headers["Authorization"] = `Bearer ${token}`;
+}
 
-// function logout() {
-//   localStorage.removeItem("token");
-//   delete todoAPI.defaults.headers["Authorization"];
-// }
+function logout() {
+  localStorage.removeItem("token");
+  delete todoAPI.defaults.headers["Authorization"];
+}
 
 const templates = {
   skillMain: document.querySelector("#skill-main").content,
+  skillItem: document.querySelector('#skill-item').content,
+  skillItemClicked: document.querySelector('#skill-item--clicked').content,
   skillRegi: document.querySelector("#skill-register").content,
   signUp: document.querySelector('#signup').content,
   intro: document.querySelector('#introduction').content,
@@ -27,19 +29,9 @@ const templates = {
 function render(frag) {
   rootEl.textContent = "";
   rootEl.appendChild(frag);
-}
-
-
-
+};
 
 async function indexPage(){
-
-  const skillFrag = document.importNode(templates.skillMain, true);
-  const skillRegi = skillFrag.querySelector('.skill-register');
-  const signUp = skillFrag.querySelector('.signup');
-  const intro = skillFrag.querySelector('.skill-intro');
-  const login = skillFrag.querySelector('.login');
-  const logout = skillFrag.querySelector('.logout');
 
   $(document).ready(function() {
     // main slider
@@ -59,12 +51,22 @@ async function indexPage(){
     }, 7000);
   });
 
+  const res = await API_URL.get('/todos');
+  console.log(res);
+
+  const skillFrag = document.importNode(templates.skillMain, true);
+  const skillRegi = skillFrag.querySelector('.skill-register');
+  const signUp = skillFrag.querySelector('.signup');
+  const intro = skillFrag.querySelector('.skill-intro');
+  const login = skillFrag.querySelector('.login');
+  const logout = skillFrag.querySelector('.logout');
+
+
 
   skillRegi.addEventListener('click', e => {
     skillRegister();
-  })
+  });
 
-  
   signUp.addEventListener('click', e => {
     skillSignUp();
   });
@@ -75,7 +77,8 @@ async function indexPage(){
 
   login.addEventListener('click', e => {
     loginPage();
-  })
+  });
+
   render(skillFrag);
 }
 
@@ -102,7 +105,6 @@ function skillIntro(){
   render(frag);
 };
 
-
 async function loginPage(){
 
   const frag = document.importNode(templates.login, true);
@@ -110,8 +112,8 @@ async function loginPage(){
   render(frag);
 }
 
-// if (localStorage.getItem("token")) {
-//   login(localStorage.getItem("token"));
-// }
+if (localStorage.getItem("token")) {
+  login(localStorage.getItem("token"));
+}
 
 indexPage();
