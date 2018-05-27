@@ -66,11 +66,11 @@
 
     <div class="skill-item">
       <h1>대략적인 상품정보</h1>
-        <!-- <div class="skill-item__small-img" style="width:100px; height:100px"></div> -->
-        <p class="skill-time__p--tutorname"></p>
+        <img class="skill-item__small-img" style="width:100%; height:100px"></img>
+        튜터이름: <p class="skill-time__p--tutorname"></p>
         <p class="skill-item__p--count"></p>
-        <p class="skill-item__p--title"></p>
-        <p class="skill-item__p--price"></p>
+        수업이름: <p class="skill-item__p--title"></p>
+        가격: <p class="skill-item__p--price"></p>
 
 
       <button class="skill-item__detail-btn">자세히</button>
@@ -126,17 +126,19 @@
   </template>
 
   <template id="signup">
+
+    <form class="signup-tem">
       <div class="field">
           <label class="label">성함</label>
           <div class="control">
-            <input class="input" type="text" placeholder="Text input">
+            <input name="name" class="input" type="text" placeholder="Text input">
           </div>
         </div>
         
         <div class="field">
           <label class="label">Username</label>
           <div class="control has-icons-left has-icons-right">
-            <input class="input is-success" type="text" placeholder="Text input" value="bulma">
+            <input name="username" class="input is-success" type="text" placeholder="Text input" value="skyboy">
             <span class="icon is-small is-left">
               <i class="fas fa-user"></i>
             </span>
@@ -146,11 +148,21 @@
           </div>
           <p class="help is-success">This username is available</p>
         </div>
-        
+
+        <div class="field">
+            <label class="label">Password</label>
+            <p class="control has-icons-left">
+              <input name="password" class="input" type="password" placeholder="Password">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+        </div>
+
         <div class="field">
           <label class="label">Email</label>
           <div class="control has-icons-left has-icons-right">
-            <input class="input is-danger" type="email" placeholder="Email input" value="abcde@abcde.com">
+            <input name="email" class="input is-danger" type="email" placeholder="Email input" value="abcde@abcde.com">
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
@@ -164,7 +176,7 @@
         <div class="field">
             <label class="label">전화번호</label>
             <div class="control">
-              <input class="input" type="number" placeholder="Phone Number">
+              <input name="phone" class="input" type="number" placeholder="Phone Number">
             </div>
           </div>
 
@@ -189,20 +201,19 @@
         <div class="field">
           <label class="label">자기소개</label>
           <div class="control">
-            <textarea class="textarea" placeholder="Textarea"></textarea>
+            <textarea name="intro" class="textarea" placeholder="Textarea"></textarea>
           </div>
         </div>
-        
-      
         
         <div class="field is-grouped">
           <div class="control">
-            <button class="button is-link">회원가입</button>
+            <button type="submit" class="button is-link">회원가입</button>
           </div>
           <div class="control">
-            <button class="button is-text">돌아가기</button>
+            <button class="button is-text" onclick=window.history.back()>돌아가기</button>
           </div>
         </div>
+      </form>
   </template>
 
   <template id="skill-register">

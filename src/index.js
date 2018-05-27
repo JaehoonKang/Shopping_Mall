@@ -77,22 +77,25 @@ async function indexPage(){
     loginPage();
   });
 
-  for(const product of res.data){
+  res.data.forEach(product => {
     const frag = document.importNode(templates.skillItem, true);
-    const tutorName = frag.querySelector('.skill-item__p--tutorname');
+    const tutorName = frag.querySelector('.skill-time__p--tutorname');
+    const productPic = frag.querySelector('.skill-item__small-img');
     const productTitle= frag.querySelector('.skill-item__p--title');
     const productPrice = frag.querySelector('.skill-item__p--price');
     const productCount = frag.querySelector('.skill-item__p--count');
 
-    // tutorName.textContent = product.user.name;
+    productPic.textContent = product.user.profileImg;
+    tutorName.textContent = product.user.name;
     productTitle.textContent= product.title;
-    productPrice.textContent = product.price;
+    productPrice.textContent = `$${product.price}`;
     productCount.textContent = product.count;
 
 
     skillFrag.querySelector('.skill-product').appendChild(frag);
 
   }
+)
 
 
 
@@ -111,8 +114,33 @@ async function skillRegister() {
 async function skillSignUp() {
 
   const frag = document.importNode(templates.signUp, true);
+  const formEl = frag.querySelector('.signup-tem');
 
-  // const signRes = await shopAPI.put('/users')
+  formEl.addEventListener('submit', async e => {
+    // const userPayload ={
+    //   username: e.target.elements.username.value,
+    //   password: e.target.elements.password.value
+    // }
+    // e.preventDefault();
+
+    // const firstRes = await shopAPI.post('users/register', userPayload);
+
+    const payload = {
+      username: e.target.elements.username.value,
+      password: e.target.elements.password.value,
+      name: e.target.elements.name.value,
+      email: e.target.elements.email.value,
+      phone: e.target.elements.phone.value,
+      profileImg: e.target.elements.resume.value,
+      intro: e.target.elements.intro.value
+    }
+
+    const lastRest = await shopAPI.post('/users/register', payload);
+    const firstRes = await shopAPI.post('/users', payload);
+
+    indexPage();
+  })
+
 
   render(frag);
 };
