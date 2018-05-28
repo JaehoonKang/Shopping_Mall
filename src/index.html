@@ -23,10 +23,10 @@
           <div class="nav-bar--basic">
             <ul class="nav-bar--basic__nav">
               <li class="skill-intro"><a href="#">소개</a></li>
-              <li><button class="login">튜터로그인</button></li>
-              <li><button class="logout">로그아웃</button></li>
-              <li><button class="signup">튜터회원가입</button></li>
-              <li><button class="skill-register">스킬등록하기</button></li>
+              <li><button class="login button is-small is-success">튜터로그인</button></li>
+              <li><button class="logout button is-small is-primary">로그아웃</button></li>
+              <li><button class="skill-register button is-small is-info">스킬등록하기</button></li>
+              <li><button class="signup button is-small is-link">튜터회원가입</button></li>
             </ul>
           </div>
         </nav>
@@ -97,7 +97,8 @@
   </template>
 
   <template id="skill-login">
-    <form class="skill-login">
+     
+    <!-- <form class="skill-login">
       <div class="field">
           <p class="control has-icons-left has-icons-right">
             <input name="username" class="input" type="text" placeholder="Username">
@@ -127,7 +128,56 @@
               </button>
           </p>
         </div>
-      </form>
+      </form> -->
+
+      <!-- <h1>ㅇㄹㄴㄹ</h1> -->
+      <div class="modal is-active login--modal">
+          <!-- <div class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Modal title</p>
+              <button class="delete" aria-label="close"></button>
+            </header>
+           
+            <footer class="modal-card-foot">
+              <button class="button is-success">Save changes</button>
+              <button class="button">Cancel</button>
+            </footer>
+          </div> -->
+
+          <form class="skill-login">
+              <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                    <input name="username" class="input" type="text" placeholder="Username">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fas fa-check"></i>
+                    </span>
+                  </p>
+                </div>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input" name="password" type="password" placeholder="Password">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+                <div class="field">
+                  <p class="control">
+                    <button class="button is-success">
+                      Login
+                    </button>
+                    <button type="button" class="button is-success login-back-btn">
+                        돌아가기
+                      </button>
+                  </p>
+                </div>
+              </form> 
+        </div>
+
   </template>
 
   <template id="signup">

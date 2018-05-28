@@ -11,7 +11,7 @@ function login(token) {
   shopAPI.defaults.headers["Authorization"] = `Bearer ${token}`;
 }
 
-function logout() {
+function logoutSkill() {
   localStorage.removeItem("token");
   delete shopAPI.defaults.headers["Authorization"];
 }
@@ -77,6 +77,11 @@ async function indexPage(){
   login.addEventListener('click', e => {
     loginPage();
   });
+
+  logout.addEventListener('click', e => {
+    logoutSkill();
+    console.log("logout completely")
+  })
 
   res.data.forEach(product => {
     const frag = document.importNode(templates.skillItem, true);
@@ -184,7 +189,6 @@ async function signupNext(){
 function skillIntro(){
 
   const frag = document.importNode(templates.intro, true);
-
   const buttonEl = frag.querySelector('.introduction-btn');
 
   buttonEl.addEventListener('click', e => {
@@ -197,27 +201,28 @@ function skillIntro(){
 async function loginPage(){
 
   const frag = document.importNode(templates.login, true);
-  const backButton = frag.querySelector('.login-back-btn');
 
-  const formEl = frag.querySelector('.skill-login');
+  // const backButton = frag.querySelector('.login-back-btn');
 
-  formEl.addEventListener('submit', async e => {
-    const payload = {
-      username: e.target.elements.username.value,
-      password: e.target.elements.password.value
-    };
-    e.preventDefault();
+  // const formEl = frag.querySelector('.skill-login');
 
-    const res = await shopAPI.post("/users/login", payload);
+  // formEl.addEventListener('submit', async e => {
+  //   const payload = {
+  //     username: e.target.elements.username.value,
+  //     password: e.target.elements.password.value
+  //   };
+  //   e.preventDefault();
 
-    login(res.data.token);
-    indexPage();
-  });
+  //   const res = await shopAPI.post("/users/login", payload);
+
+  //   login(res.data.token);
+  //   indexPage();
+  // });
 
 
-  backButton.addEventListener('click', e => {
-    indexPage();
-  });
+  // backButton.addEventListener('click', e => {
+  //   indexPage();
+  // });
 
   render(frag);
 }
