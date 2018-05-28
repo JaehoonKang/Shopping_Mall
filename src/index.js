@@ -159,7 +159,9 @@ async function skillRegister() {
       productImg: e.target.elements.resume.value,
       price: e.target.elements.price.value,
       description: e.target.elements.description.value,
-      category: e.target.elements.select.value
+      category: e.target.elements.select.value,
+      curriculum: e.target.elements.curriculum.value,
+      location: e.target.elements.location.value
     }
     e.preventDefault();
 
