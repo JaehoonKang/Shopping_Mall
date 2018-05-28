@@ -107,6 +107,25 @@ async function skillRegister() {
 
   const frag = document.importNode(templates.skillRegi, true);
 
+  const formEl = frag.querySelector('.skill-service-register');
+
+  formEl.addEventListener('submit',async e => {
+
+    const productPayload = {
+      title: e.target.elements.title.value,
+      productImg: e.target.elements.resume.value,
+      price: e.target.elements.price.value,
+      description: e.target.elements.description.value,
+      category: e.target.elements.select.value
+    }
+    e.preventDefault();
+
+    const res = await shopAPI.post('/products', productPayload);
+
+    indexPage();
+  })
+  
+
 
   render(frag);
 };
@@ -117,15 +136,7 @@ async function skillSignUp() {
   const formEl = frag.querySelector('.signup-tem');
 
   formEl.addEventListener('submit', async e => {
-    // const userPayload ={
-    //   username: e.target.elements.username.value,
-    //   password: e.target.elements.password.value
-    // }
-    // e.preventDefault();
-
-    // const firstRes = await shopAPI.post('users/register', userPayload);
-
-    const payload = {
+    const userPayload ={
       username: e.target.elements.username.value,
       password: e.target.elements.password.value,
       name: e.target.elements.name.value,
@@ -134,9 +145,41 @@ async function skillSignUp() {
       profileImg: e.target.elements.resume.value,
       intro: e.target.elements.intro.value
     }
+    e.preventDefault();
 
-    const lastRest = await shopAPI.post('/users/register', payload);
-    const firstRes = await shopAPI.post('/users', payload);
+    const firstRes = await shopAPI.post('users/register', userPayload);
+
+    // const lastRes = await shopAPI.get('/users');
+
+
+    // lastRes.data.forEach(person => {
+    //   const payload = {
+    //         name: e.target.elements.name.value,
+    //         email: e.target.elements.email.value,
+    //         phone: e.target.elements.phone.value,
+    //         profileImg: e.target.elements.resume.value,
+    //         intro: e.target.elements.intro.value
+    //       }
+
+
+    // })
+
+    // firstRes.data.forEach(rest => {
+
+    //   const payload = {
+    //     name: e.target.elements.name.value,
+    //     email: e.target.elements.email.value,
+    //     phone: e.target.elements.phone.value,
+    //     profileImg: e.target.elements.resume.value,
+    //     intro: e.target.elements.intro.value
+    //   }
+
+    //   const firstRes = await shopAPI.post('/users/register', payload);
+
+    // })
+
+
+    // const lastRest = await shopAPI.post('/users/register', payload);
 
     indexPage();
   })
@@ -156,6 +199,8 @@ async function loginPage(){
 
   const frag = document.importNode(templates.login, true);
 
+
+  
   render(frag);
 }
 

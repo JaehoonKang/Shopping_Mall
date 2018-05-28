@@ -217,6 +217,7 @@
   </template>
 
   <template id="skill-register">
+
     <div class="skill-service">
         <form class="skill-service-register">
               <div class="skill-service-register--tutorName"></div>
@@ -224,29 +225,29 @@
               <div class="field">
                   <label class="label">서비스 타이틀</label>
                   <div class="control">
-                    <input class="title" type="text" placeholder="Text input">
+                    <input name="title" class="title" type="text" placeholder="Text input">
                   </div>
-                  <p class="help">비즈니스(Excel), 디자인(Photoshop), 프로그래밍(Programming), 사진(Photography), 기타 중 선택</p>
+                  <p class="help">상품의 타이틀을 적어주세요</p>
               </div>
 
               <div class="field">
                   <label class="label">서비스종류</label>
                   <div class="control">
                     <div class="select">
-                      <select>
-                        <option>비즈니스(엑셀,PPT)</option>
-                        <option>디자인</option>
-                        <option>프로그래밍</option>
-                        <option>사진</option>
-                        <option>창업</option>
-                        <option>기타</option>
+                      <select name="select" >
+                        <option value="business">비즈니스(엑셀,PPT)</option>
+                        <option value="design">디자인</option>
+                        <option value="programming">프로그래밍</option>
+                        <option value="sports">스포츠</option>
+                        <option value="photo">사진</option>
+                        <option value="others">기타</option>
                       </select>
                     </div>
                 </div>
               </div>
 
                 <div class="file has-name">
-                  <div>Skill 사진</div>
+                  <div><strong>Skill 사진</strong></div>
                   <label class="file-label">
                     <input class="file-input" type="file" name="resume">
                     <span class="file-cta">
@@ -266,7 +267,7 @@
                 <div class="field">
                   <label class="label"><strong>가격</strong></label>
                   <div class="control">
-                    <input class="input" type="number" placeholder="Price">
+                    <input name="price" class="input" type="number" placeholder="Price">
                   </div>
                 </div>
 
@@ -278,10 +279,10 @@
                 </div>
               <div class="field is-grouped">
                   <div class="control">
-                    <button class="button is-link">기술등록</button>
+                    <button type="submit" class="button is-link">기술등록</button>
                   </div>
                   <div class="control">
-                    <button class="button is-text">취소하기</button>
+                    <button class="button is-text" onclick=window.history.back()>취소하기</button>
                   </div>
               </div>
         </form>
