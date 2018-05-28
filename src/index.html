@@ -18,11 +18,11 @@
   <template id="skill-main">
       <div class="container">
 
-        <nav class="nav-bar">
+        <nav class="nav-bar navbar is-primary">
           <h1 class="nav-bar__logo">Skill Logo</h1>
           <div class="nav-bar--basic">
             <ul class="nav-bar--basic__nav">
-              <li class="skill-intro"><a href="#">소개</a></li>
+              <li class="skill-intro"><a class="button is-small" href="#">소개</a></li>
               <li><button class="login button is-small is-success">튜터로그인</button></li>
               <li><button class="logout button is-small is-primary">로그아웃</button></li>
               <li><button class="skill-register button is-small is-info">스킬등록하기</button></li>
@@ -49,7 +49,7 @@
         </div>
       </div>
 
-      <div class="skill-product"></div>
+      <section class="skill-product section"></section>
 
       <footer class="footer">
         <div class="footer">
@@ -67,24 +67,39 @@
     <div class="skill-item">
       <h1>대략적인 상품정보</h1>
         <img class="skill-item__small-img" style="width:100%; height:100px"></img>
-        튜터이름: <p class="skill-time__p--tutorname"></p>
+        <span>튜터이름:</span> <p class="skill-time__p--tutorname"></p>
         <p class="skill-item__p--count"></p>
-        수업이름: <p class="skill-item__p--title"></p>
-        가격: <p class="skill-item__p--price"></p>
+        <span> 수업이름:</span> <p class="skill-item__p--title"></p>
+        <span>가격:</span> <p class="skill-item__p--price"></p>
 
-
-      <button class="skill-item__detail-btn">자세히</button>
+        <button class="skill-item__detail-btn button is-small is-primary">자세히</button>
     </div>
   </template>
 
-
-
   <template id="skill-item--clicked">
+    <div class="skill-item--clicked modal is-active">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">스킬 상세</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body skill-item--clicked__section">
+          <img class="skill-item--clicked__section--productImg"></img>
+          <p class="skill-item--clicked__section--tutorname"></p>
+          <p class="skill-item--clicked__section--title"></p>
+          <p class="skill-item--clicked__section--location"></p>
+          <p class="skill-item--clicked__section--description"></p>
+          <p class="skill-item--clicked__section--curriculum"></p>
+          <p class="skill-item--clicked__section--price"></p>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">신청하기</button>
+        </footer>
+      </div>
 
-    <h1>메인페이지에서 상품이 눌렀을때 뜨는 페이지</h1>
 
-    <button class="skill-item--clicked__apply-btn">신청하기</button>
-
+    </div>
   </template>
 
   <template id="introduction">
@@ -131,7 +146,7 @@
       </form> -->
 
       <!-- <h1>ㅇㄹㄴㄹ</h1> -->
-      <div class="modal is-active login--modal">
+      <!-- <div class="modal is-active login--modal"> -->
           <!-- <div class="modal-background"></div>
           <div class="modal-card">
             <header class="modal-card-head">
@@ -144,7 +159,7 @@
               <button class="button">Cancel</button>
             </footer>
           </div> -->
-
+        <div class="modal is-active login--modal">
           <form class="skill-login">
               <div class="field">
                   <p class="control has-icons-left has-icons-right">
@@ -185,12 +200,6 @@
     <h1><strong>우선 원하시는 아이디와 패스워드를 넣어주세요</strong></h1>
 
     <form class="signup-tem">
-      <!-- <div class="field">
-          <label class="label">성함</label>
-          <div class="control">
-            <input name="name" class="input" type="text" placeholder="Text input">
-          </div>
-        </div> -->
         
         <div class="field">
           <label class="label">Username</label>

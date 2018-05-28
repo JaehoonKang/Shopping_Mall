@@ -91,8 +91,9 @@ async function indexPage(){
     const productTitle= frag.querySelector('.skill-item__p--title');
     const productPrice = frag.querySelector('.skill-item__p--price');
     const productCount = frag.querySelector('.skill-item__p--count');
+    
 
-    productPic.textContent = product.detail.profileImg;
+    productPic.src = product.detail.profileImg;
     tutorName.textContent = product.detail.name;
     productTitle.textContent= product.title;
     productPrice.textContent = `$${product.price}`;
@@ -101,12 +102,49 @@ async function indexPage(){
 
     skillFrag.querySelector('.skill-product').appendChild(frag);
 
+
   }
 )
+
+  const productDetailButton = skillFrag.querySelector('.skill-item__detail-btn');
+    
+  productDetailButton.addEventListener('click', e => {
+    showProductDetail();
+  });
 
   render(skillFrag);
 }
 
+async function showProductDetail (){
+  
+  const res = await shopAPI.get('/products?_expand=detail');
+  const frag = document.importNode(templates.skillItemClicked, true);
+  
+  res.data.forEach(item => {
+
+    const sectionEl = frag.querySelector('.skill-item--clicked__section');
+
+    const tutorName = sectionEl.querySelector('.skill-item--clicked__section--tutorname');
+    const productPic = sectionEl.querySelector('.skill-item--clicked__section--productImg');
+    const productTitle= sectionEl.querySelector('.skill-item--clicked__section--title');
+    const productPrice = sectionEl.querySelector('.skill-item--clicked__section--price');
+    const productCurriculum = sectionEl.querySelector('.skill-item--clicked__section--curriculum');
+    const productLocation = sectionEl.querySelector('.skill-item--clicked__section--location');
+    const productDescription = sectionEl.querySelector('.skill-item--clicked__section--description');
+    
+
+    productPic.src = item.productImg;
+    tutorName.textContent = item.detail.name;
+    productTitle.textContent= item.title;
+    productPrice.textContent = `$${item.price}`;
+    productCurriculum.textContent = item.curriculum;
+    productLocation.textContent = item.location;
+    productDescription.textContent = item.description;
+
+  })
+
+  render(frag);
+}
 
 async function skillRegister() {
 
@@ -204,20 +242,20 @@ async function loginPage(){
 
   // const backButton = frag.querySelector('.login-back-btn');
 
-  // const formEl = frag.querySelector('.skill-login');
+  const formEl = frag.querySelector('.skill-login');
 
-  // formEl.addEventListener('submit', async e => {
-  //   const payload = {
-  //     username: e.target.elements.username.value,
-  //     password: e.target.elements.password.value
-  //   };
-  //   e.preventDefault();
+  formEl.addEventListener('submit', async e => {
+    const payload = {
+      username: e.target.elements.username.value,
+      password: e.target.elements.password.value
+    };
+    e.preventDefault();
 
-  //   const res = await shopAPI.post("/users/login", payload);
+    const res = await shopAPI.post("/users/login", payload);
 
-  //   login(res.data.token);
-  //   indexPage();
-  // });
+    login(res.data.token);
+    indexPage();
+  });
 
 
   // backButton.addEventListener('click', e => {
