@@ -23,7 +23,8 @@ const templates = {
   skillRegi: document.querySelector("#skill-register").content,
   signUp: document.querySelector('#signup').content,
   intro: document.querySelector('#introduction').content,
-  login: document.querySelector('#skill-login').content
+  login: document.querySelector('#skill-login').content,
+  signupNext: document.querySelector('#signup-next').content
 };
 
 function render(frag) {
@@ -51,7 +52,7 @@ async function indexPage(){
     }, 7000);
   });
 
-  const res = await shopAPI.get("/products?_expand=user");
+  const res = await shopAPI.get("/products?_expand=detail");
 
   const skillFrag = document.importNode(templates.skillMain, true);
   const skillRegi = skillFrag.querySelector('.skill-register');
@@ -79,14 +80,15 @@ async function indexPage(){
 
   res.data.forEach(product => {
     const frag = document.importNode(templates.skillItem, true);
+
     const tutorName = frag.querySelector('.skill-time__p--tutorname');
     const productPic = frag.querySelector('.skill-item__small-img');
     const productTitle= frag.querySelector('.skill-item__p--title');
     const productPrice = frag.querySelector('.skill-item__p--price');
     const productCount = frag.querySelector('.skill-item__p--count');
 
-    productPic.textContent = product.user.profileImg;
-    tutorName.textContent = product.user.name;
+    productPic.textContent = product.detail.profileImg;
+    tutorName.textContent = product.detail.name;
     productTitle.textContent= product.title;
     productPrice.textContent = `$${product.price}`;
     productCount.textContent = product.count;
@@ -96,8 +98,6 @@ async function indexPage(){
 
   }
 )
-
-
 
   render(skillFrag);
 }
@@ -134,73 +134,75 @@ async function skillSignUp() {
 
   const frag = document.importNode(templates.signUp, true);
   const formEl = frag.querySelector('.signup-tem');
+  const regiButtonEl = formEl.querySelector('.signup-btn');
+  const returnButton = frag.querySelector('.signup-back-btn');
 
   formEl.addEventListener('submit', async e => {
-    const userPayload ={
+
+    const payload = {
       username: e.target.elements.username.value,
-      password: e.target.elements.password.value,
-      name: e.target.elements.name.value,
-      email: e.target.elements.email.value,
-      phone: e.target.elements.phone.value,
-      profileImg: e.target.elements.resume.value,
-      intro: e.target.elements.intro.value
-    }
+      password: e.target.elements.password.value
+    };
+
     e.preventDefault();
+    
+    const res = await shopAPI.post('users/register', payload);
 
-    const firstRes = await shopAPI.post('users/register', userPayload);
+    returnButton.addEventListener('click', e => {
+      indexPage();
+    });
 
-    // const lastRes = await shopAPI.get('/users');
-
-
-    // lastRes.data.forEach(person => {
-    //   const payload = {
-    //         name: e.target.elements.name.value,
-    //         email: e.target.elements.email.value,
-    //         phone: e.target.elements.phone.value,
-    //         profileImg: e.target.elements.resume.value,
-    //         intro: e.target.elements.intro.value
-    //       }
-
-
-    // })
-
-    // firstRes.data.forEach(rest => {
-
-    //   const payload = {
-    //     name: e.target.elements.name.value,
-    //     email: e.target.elements.email.value,
-    //     phone: e.target.elements.phone.value,
-    //     profileImg: e.target.elements.resume.value,
-    //     intro: e.target.elements.intro.value
-    //   }
-
-    //   const firstRes = await shopAPI.post('/users/register', payload);
-
-    // })
-
-
-    // const lastRest = await shopAPI.post('/users/register', payload);
-
-    indexPage();
-  })
-
+    signupNext();
+  });
 
   render(frag);
 };
+
+async function signupNext(){
+  const frag = document.importNode(templates.signupNext, true);
+  const formEl = frag.querySelector('.signup-tem');
+
+  formEl.addEventListener('submit', async e => {
+  const payload = {
+    name: e.target.elements.name.value,
+    email: e.target.elements.email.value,
+    phone: e.target.elements.phone.value,
+    profileImg: e.target.elements.resume.value,
+    intro: e.target.elements.intro.value
+    };
+
+  e.preventDefault();
+
+  const res = await shopAPI.post('/details', payload);
+
+  indexPage();
+  });
+
+  render(frag);
+}
 
 function skillIntro(){
 
   const frag = document.importNode(templates.intro, true);
 
+  const buttonEl = frag.querySelector('.introduction-btn');
+
+  buttonEl.addEventListener('click', e => {
+    indexPage();
+  });
+  
   render(frag);
 };
 
 async function loginPage(){
 
   const frag = document.importNode(templates.login, true);
+  const backButton = frag.querySelector('.login-back-btn');
 
+  backButton.addEventListener('click', e => {
+    indexPage();
+  })
 
-  
   render(frag);
 }
 

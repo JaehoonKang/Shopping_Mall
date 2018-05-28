@@ -91,6 +91,9 @@
 
     <h2 class="introduction-title">Skill Local는?</h2>
     <p class="introduction-detail">Skill Local는 대도시가 아닌 소도시 대학생들이 본인의 재능 공유하는 대학생 플랫폼입니다</p>
+    <div class="control">
+        <button class="button is-text introduction-btn">돌아가기</button>
+      </div>
   </template>
 
   <template id="skill-login">
@@ -118,7 +121,7 @@
             <button class="button is-success">
               Login
             </button>
-            <button class="button is-success">
+            <button class="button is-success login-back-btn">
                 돌아가기
               </button>
           </p>
@@ -127,13 +130,15 @@
 
   <template id="signup">
 
+    <h1><strong>우선 원하시는 아이디와 패스워드를 넣어주세요</strong></h1>
+
     <form class="signup-tem">
-      <div class="field">
+      <!-- <div class="field">
           <label class="label">성함</label>
           <div class="control">
             <input name="name" class="input" type="text" placeholder="Text input">
           </div>
-        </div>
+        </div> -->
         
         <div class="field">
           <label class="label">Username</label>
@@ -159,7 +164,7 @@
             </p>
         </div>
 
-        <div class="field">
+        <!-- <div class="field">
           <label class="label">Email</label>
           <div class="control has-icons-left has-icons-right">
             <input name="email" class="input is-danger" type="email" placeholder="Email input" value="abcde@abcde.com">
@@ -203,17 +208,85 @@
           <div class="control">
             <textarea name="intro" class="textarea" placeholder="Textarea"></textarea>
           </div>
-        </div>
+        </div> -->
         
         <div class="field is-grouped">
           <div class="control">
-            <button type="submit" class="button is-link">회원가입</button>
+            <button type="submit" class="button is-link signup-btn">다음단계</button>
           </div>
           <div class="control">
-            <button class="button is-text" onclick=window.history.back()>돌아가기</button>
+            <button type="button"class="button is-text signup-back-btn" onclick=window.history.back()>취소하기</button>
           </div>
         </div>
       </form>
+  </template>
+
+  <template id="signup-next">
+
+      <form class="signup-tem">
+          <div class="field">
+              <label class="label">성함</label>
+              <div class="control">
+                <input name="name" class="input" type="text" placeholder="Text input">
+              </div>
+            </div>
+    
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control has-icons-left has-icons-right">
+                <input name="email" class="input is-danger" type="email" placeholder="Email input" value="abcde@abcde.com">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>
+              </div>
+              <p class="help is-danger">This email is invalid</p>
+            </div>
+    
+            <div class="field">
+                <label class="label">전화번호</label>
+                <div class="control">
+                  <input name="phone" class="input" type="number" placeholder="Phone Number">
+                </div>
+              </div>
+    
+            <div class="file has-name">
+                <div><strong>프로필</strong></div>
+                <label class="file-label">
+                  <input class="file-input" type="file" name="resume">
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Choose a file…
+                    </span>
+                  </span>
+                  <span class="file-name">
+                    Screen Shot 2017-07-29 at 15.54.25.png
+                  </span>
+                </label>
+              </div>
+            
+            <div class="field">
+              <label class="label">자기소개</label>
+              <div class="control">
+                <textarea name="intro" class="textarea" placeholder="Textarea"></textarea>
+              </div>
+            </div>
+            
+            <div class="field is-grouped">
+              <div class="control">
+                <button type="submit" class="button is-link signup-btn">회원가입</button>
+              </div>
+              <div class="control">
+                <button type="button"class="button is-text signup-back-btn" onclick=window.history.back()>돌아가기</button>
+              </div>
+            </div>
+          </form>
+
   </template>
 
   <template id="skill-register">
@@ -238,7 +311,8 @@
                         <option value="business">비즈니스(엑셀,PPT)</option>
                         <option value="design">디자인</option>
                         <option value="programming">프로그래밍</option>
-                        <option value="sports">스포츠</option>
+                        <option value="business">언어</option>
+                        <option value="sports">건강</option>
                         <option value="photo">사진</option>
                         <option value="others">기타</option>
                       </select>
@@ -282,7 +356,7 @@
                     <button type="submit" class="button is-link">기술등록</button>
                   </div>
                   <div class="control">
-                    <button class="button is-text" onclick=window.history.back()>취소하기</button>
+                    <button type="button" class="button is-text signup-back-btn" onclick=window.history.back()>취소하기</button>
                   </div>
               </div>
         </form>
