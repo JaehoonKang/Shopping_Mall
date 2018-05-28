@@ -199,9 +199,25 @@ async function loginPage(){
   const frag = document.importNode(templates.login, true);
   const backButton = frag.querySelector('.login-back-btn');
 
+  const formEl = frag.querySelector('.skill-login');
+
+  formEl.addEventListener('submit', async e => {
+    const payload = {
+      username: e.target.elements.username.value,
+      password: e.target.elements.password.value
+    };
+    e.preventDefault();
+
+    const res = await shopAPI.post("/users/login", payload);
+
+    login(res.data.token);
+    indexPage();
+  });
+
+
   backButton.addEventListener('click', e => {
     indexPage();
-  })
+  });
 
   render(frag);
 }

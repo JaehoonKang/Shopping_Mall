@@ -97,9 +97,10 @@
   </template>
 
   <template id="skill-login">
+    <form class="skill-login">
       <div class="field">
           <p class="control has-icons-left has-icons-right">
-            <input class="input" type="email" placeholder="Email">
+            <input name="username" class="input" type="text" placeholder="Username">
             <span class="icon is-small is-left">
               <i class="fas fa-envelope"></i>
             </span>
@@ -110,7 +111,7 @@
         </div>
         <div class="field">
           <p class="control has-icons-left">
-            <input class="input" type="password" placeholder="Password">
+            <input class="input" name="password" type="password" placeholder="Password">
             <span class="icon is-small is-left">
               <i class="fas fa-lock"></i>
             </span>
@@ -121,11 +122,12 @@
             <button class="button is-success">
               Login
             </button>
-            <button class="button is-success login-back-btn">
+            <button type="button" class="button is-success login-back-btn">
                 돌아가기
               </button>
           </p>
         </div>
+      </form>
   </template>
 
   <template id="signup">
@@ -220,6 +222,8 @@
         </div>
       </form>
   </template>
+
+
 
   <template id="signup-next">
 
