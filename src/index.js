@@ -32,6 +32,41 @@ function render(frag) {
   rootEl.appendChild(frag);
 };
 
+
+
+function eachDetailButton(){
+  const overallFrag = document.importNode(templates.skillMain, true);
+
+  const productDetailButton = overallFrag.querySelector('.skill-item__detail-btn');
+  
+  productDetailButton.addEventListener('click', e => {
+    showProductDetail();
+  });
+//   const res2 = await shopAPI.get("/products");
+  
+//   res2.data.forEach(product => {
+//     const frag = document.importNode(templates.skillItem, true);
+
+//     const tutorName = frag.querySelector('.skill-time__p--tutorname');
+//     const productPic = frag.querySelector('.skill-item__small-img');
+//     const productTitle= frag.querySelector('.skill-item__p--title');
+//     const productPrice = frag.querySelector('.skill-item__p--price');
+//     const productCount = frag.querySelector('.skill-item__p--count');
+    
+
+//     // tutorName.textContent = product.detail.name;
+//     // productPic.src = product.detail.profileImg;
+//     productTitle.textContent= product.title;
+//     productPrice.textContent = `$${product.price}`;
+//     // productCount.textContent = product.count;
+
+//     skillFrag.querySelector('.skill-product').appendChild(frag);
+//   }
+// );
+
+};
+
+
 async function indexPage(){
 
   $(document).ready(function() {
@@ -52,7 +87,9 @@ async function indexPage(){
     }, 7000);
   });
 
-  
+  const skillRes = await shopAPI.get('/details');
+
+
   const skillFrag = document.importNode(templates.skillMain, true);
   
   const skillRegi = skillFrag.querySelector('.skill-register');
@@ -63,7 +100,7 @@ async function indexPage(){
   
   
   skillRegi.addEventListener('click', e => {
-    skillRegister();
+    skillRegister(skillRes.id);
   });
   
   signUp.addEventListener('click', e => {
@@ -99,59 +136,36 @@ async function indexPage(){
     // productPic.src = product.detail.profileImg;
     productTitle.textContent= product.title;
     productPrice.textContent = `$${product.price}`;
-    productCount.textContent = product.count;
+    // productCount.textContent = product.count;
 
     skillFrag.querySelector('.skill-product').appendChild(frag);
   }
 );
 
-  const productDetailButton = skillFrag.querySelector('.skill-item__detail-btn');
-    
-  productDetailButton.addEventListener('click', e => {
-    showProductDetail();
-  });
-
-  render(skillFrag);
-}
-
-async function showProductDetail (){
-  
-  const infoRes = await shopAPI.get('/products?_expand=detail');
-  const frag = document.importNode(templates.skillItemClicked, true);
-  
-  infoRes.data.forEach(item => {
-
-    const sectionEl = frag.querySelector('.skill-item--clicked__section');
-
-    const tutorName = sectionEl.querySelector('.skill-item--clicked__section--tutorname');
-    const productPic = sectionEl.querySelector('.skill-item--clicked__section--productImg');
-    const productTitle= sectionEl.querySelector('.skill-item--clicked__section--title');
-    const productPrice = sectionEl.querySelector('.skill-item--clicked__section--price');
-    const productCurriculum = sectionEl.querySelector('.skill-item--clicked__section--curriculum');
-    const productLocation = sectionEl.querySelector('.skill-item--clicked__section--location');
-    const productDescription = sectionEl.querySelector('.skill-item--clicked__section--description');
-    
-
-    productPic.src = item.productImg;
-    tutorName.textContent = item.detail.name;
-    productTitle.textContent= item.title;
-    productPrice.textContent = `$${item.price}`;
-    productCurriculum.textContent = item.curriculum;
-    productLocation.textContent = item.location;
-    productDescription.textContent = item.description;
-
+  const productDetailButton = skillFrag.querySelectorAll('.skill-item__detail-btn');
+  console.log(productDetailButton);  
+  productDetailButton.forEach(box => {
+    console.log(box);
+    box.addEventListener('click', e => {
+      showProductDetail();
+    })
   })
 
-  render(frag);
+render(skillFrag);
 }
 
-async function skillRegister() {
+
+
+async function skillRegister(skillId) {
 
   const frag = document.importNode(templates.skillRegi, true);
 
   const formEl = frag.querySelector('.skill-service-register');
 
+
   formEl.addEventListener('submit', async e => {
+
+    // const tutorRes = await shopAPI.get('/detail?_expand=user');
 
     const productPayload = {
         title: e.target.elements.title.value,
@@ -160,14 +174,16 @@ async function skillRegister() {
         description: e.target.elements.description.value,
         category: e.target.elements.select.value,
         curriculum: e.target.elements.curriculum.value,
-        location: e.target.elements.location.value
+        location: e.target.elements.location.value,
+        userId: skillId,
+        detailId: skillId
       };
       e.preventDefault();
       
       
       const productRes = await shopAPI.post('/products', productPayload);
 
-    indexPage();
+      indexPage();
   });
 
   render(frag);
@@ -231,6 +247,38 @@ async function signupNext(userId){
   render(frag);
 }
 
+
+async function showProductDetail (){
+  
+  const frag = document.importNode(templates.skillItemClicked, true);
+  // const infoRes = await shopAPI.get('/products');
+  
+  // infoRes.data.forEach(item => {
+
+  //   const sectionEl = frag.querySelector('.skill-item--clicked__section');
+
+  //   const tutorName = sectionEl.querySelector('.skill-item--clicked__section--tutorname');
+  //   const productPic = sectionEl.querySelector('.skill-item--clicked__section--productImg');
+  //   const productTitle= sectionEl.querySelector('.skill-item--clicked__section--title');
+  //   const productPrice = sectionEl.querySelector('.skill-item--clicked__section--price');
+  //   const productCurriculum = sectionEl.querySelector('.skill-item--clicked__section--curriculum');
+  //   const productLocation = sectionEl.querySelector('.skill-item--clicked__section--location');
+  //   const productDescription = sectionEl.querySelector('.skill-item--clicked__section--description');
+    
+
+  //   productPic.src = item.productImg;
+  //   // tutorName.textContent = item.detail.name;
+  //   productTitle.textContent= item.title;
+  //   productPrice.textContent = `$${item.price}`;
+  //   productCurriculum.textContent = item.curriculum;
+  //   productLocation.textContent = item.location;
+  //   productDescription.textContent = item.description;
+
+  // });
+
+  render(frag);
+};
+
 function skillIntro(){
 
   const frag = document.importNode(templates.intro, true);
@@ -262,6 +310,7 @@ async function loginPage(){
 
     login(res.data.token);
     indexPage();
+    eachDetailButton()
   });
 
 
@@ -276,4 +325,8 @@ if (localStorage.getItem("token")) {
   login(localStorage.getItem("token"));
 }
 
+
+
 indexPage();
+
+
