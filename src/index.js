@@ -34,39 +34,6 @@ function render(frag) {
 
 
 
-function eachDetailButton(){
-  const overallFrag = document.importNode(templates.skillMain, true);
-
-  const productDetailButton = overallFrag.querySelector('.skill-item__detail-btn');
-  
-  productDetailButton.addEventListener('click', e => {
-    showProductDetail();
-  });
-//   const res2 = await shopAPI.get("/products");
-  
-//   res2.data.forEach(product => {
-//     const frag = document.importNode(templates.skillItem, true);
-
-//     const tutorName = frag.querySelector('.skill-time__p--tutorname');
-//     const productPic = frag.querySelector('.skill-item__small-img');
-//     const productTitle= frag.querySelector('.skill-item__p--title');
-//     const productPrice = frag.querySelector('.skill-item__p--price');
-//     const productCount = frag.querySelector('.skill-item__p--count');
-    
-
-//     // tutorName.textContent = product.detail.name;
-//     // productPic.src = product.detail.profileImg;
-//     productTitle.textContent= product.title;
-//     productPrice.textContent = `$${product.price}`;
-//     // productCount.textContent = product.count;
-
-//     skillFrag.querySelector('.skill-product').appendChild(frag);
-//   }
-// );
-
-};
-
-
 async function indexPage(){
 
   $(document).ready(function() {
@@ -87,8 +54,12 @@ async function indexPage(){
     }, 7000);
   });
 
-  const skillRes = await shopAPI.get('/details');
 
+  //현재 여기서부터 안되고 있음..ㅠㅠㅠ
+
+  const skillRes = await shopAPI.get('/details');
+  
+  // console.log(skillRes.data.pop().id)
 
   const skillFrag = document.importNode(templates.skillMain, true);
   
@@ -100,7 +71,8 @@ async function indexPage(){
   
   
   skillRegi.addEventListener('click', e => {
-    skillRegister(skillRes.id);
+
+    skillRegister(skillRes.data.pop().id);
   });
   
   signUp.addEventListener('click', e => {
@@ -136,20 +108,18 @@ async function indexPage(){
     // productPic.src = product.detail.profileImg;
     productTitle.textContent= product.title;
     productPrice.textContent = `$${product.price}`;
-    // productCount.textContent = product.count;
+    productCount.textContent = product.count;
 
     skillFrag.querySelector('.skill-product').appendChild(frag);
   }
 );
 
   const productDetailButton = skillFrag.querySelectorAll('.skill-item__detail-btn');
-  console.log(productDetailButton);  
   productDetailButton.forEach(box => {
-    console.log(box);
     box.addEventListener('click', e => {
       showProductDetail();
     })
-  })
+  });
 
 render(skillFrag);
 }
@@ -157,6 +127,10 @@ render(skillFrag);
 
 
 async function skillRegister(skillId) {
+
+  console.log(skillId)
+
+  const num = skillId;
 
   const frag = document.importNode(templates.skillRegi, true);
 
@@ -175,14 +149,14 @@ async function skillRegister(skillId) {
         category: e.target.elements.select.value,
         curriculum: e.target.elements.curriculum.value,
         location: e.target.elements.location.value,
-        userId: skillId,
-        detailId: skillId
+        userId: num,
+        detailId: num,
       };
       e.preventDefault();
       
-      
+      // console.log(productPayload)
       const productRes = await shopAPI.post('/products', productPayload);
-
+      // console.log(productRes)
       indexPage();
   });
 
@@ -295,7 +269,6 @@ async function loginPage(){
 
   const frag = document.importNode(templates.login, true);
 
-  // const backButton = frag.querySelector('.login-back-btn');
 
   const formEl = frag.querySelector('.skill-login');
 
@@ -310,13 +283,8 @@ async function loginPage(){
 
     login(res.data.token);
     indexPage();
-    eachDetailButton()
   });
 
-
-  // backButton.addEventListener('click', e => {
-  //   indexPage();
-  // });
 
   render(frag);
 }
