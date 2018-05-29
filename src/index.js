@@ -52,37 +52,39 @@ async function indexPage(){
     }, 7000);
   });
 
-  const res = await shopAPI.get("/products?_expand=detail");
-
+  
   const skillFrag = document.importNode(templates.skillMain, true);
+  
   const skillRegi = skillFrag.querySelector('.skill-register');
   const signUp = skillFrag.querySelector('.signup');
   const intro = skillFrag.querySelector('.skill-intro');
   const login = skillFrag.querySelector('.login');
   const logout = skillFrag.querySelector('.logout');
-
-
+  
+  
   skillRegi.addEventListener('click', e => {
     skillRegister();
   });
-
+  
   signUp.addEventListener('click', e => {
     skillSignUp();
   });
-
+  
   intro.addEventListener('click', e => {
     skillIntro();
   });
-
+  
   login.addEventListener('click', e => {
     loginPage();
   });
-
+  
   logout.addEventListener('click', e => {
     logoutSkill();
     console.log("logout completely")
-  })
+  });
 
+  const res = await shopAPI.get("/products");
+  
   res.data.forEach(product => {
     const frag = document.importNode(templates.skillItem, true);
 
@@ -93,18 +95,15 @@ async function indexPage(){
     const productCount = frag.querySelector('.skill-item__p--count');
     
 
-    productPic.src = product.detail.profileImg;
-    tutorName.textContent = product.detail.name;
+    // tutorName.textContent = product.detail.name;
+    // productPic.src = product.detail.profileImg;
     productTitle.textContent= product.title;
     productPrice.textContent = `$${product.price}`;
     productCount.textContent = product.count;
 
-
     skillFrag.querySelector('.skill-product').appendChild(frag);
-
-
   }
-)
+);
 
   const productDetailButton = skillFrag.querySelector('.skill-item__detail-btn');
     
@@ -117,10 +116,10 @@ async function indexPage(){
 
 async function showProductDetail (){
   
-  const res = await shopAPI.get('/products?_expand=detail');
+  const infoRes = await shopAPI.get('/products?_expand=detail');
   const frag = document.importNode(templates.skillItemClicked, true);
   
-  res.data.forEach(item => {
+  infoRes.data.forEach(item => {
 
     const sectionEl = frag.querySelector('.skill-item--clicked__section');
 
@@ -152,25 +151,24 @@ async function skillRegister() {
 
   const formEl = frag.querySelector('.skill-service-register');
 
-  formEl.addEventListener('submit',async e => {
+  formEl.addEventListener('submit', async e => {
 
     const productPayload = {
-      title: e.target.elements.title.value,
-      productImg: e.target.elements.resume.value,
-      price: e.target.elements.price.value,
-      description: e.target.elements.description.value,
-      category: e.target.elements.select.value,
-      curriculum: e.target.elements.curriculum.value,
-      location: e.target.elements.location.value
-    }
-    e.preventDefault();
-
-    const res = await shopAPI.post('/products', productPayload);
+        title: e.target.elements.title.value,
+        productImg: e.target.elements.resume.value,
+        price: e.target.elements.price.value,
+        description: e.target.elements.description.value,
+        category: e.target.elements.select.value,
+        curriculum: e.target.elements.curriculum.value,
+        location: e.target.elements.location.value
+      };
+      e.preventDefault();
+      
+      
+      const productRes = await shopAPI.post('/products', productPayload);
 
     indexPage();
-  })
-  
-
+  });
 
   render(frag);
 };
@@ -178,7 +176,9 @@ async function skillRegister() {
 async function skillSignUp() {
 
   const frag = document.importNode(templates.signUp, true);
+
   const formEl = frag.querySelector('.signup-tem');
+
   const regiButtonEl = formEl.querySelector('.signup-btn');
   const returnButton = frag.querySelector('.signup-back-btn');
 
@@ -197,13 +197,17 @@ async function skillSignUp() {
       indexPage();
     });
 
-    signupNext();
+    const userRes = await shopAPI.get('/users');
+
+    userRes.data.forEach(user => {
+      signupNext(user.id);
+    });
   });
 
   render(frag);
 };
 
-async function signupNext(){
+async function signupNext(userId){
   const frag = document.importNode(templates.signupNext, true);
   const formEl = frag.querySelector('.signup-tem');
 
@@ -213,7 +217,8 @@ async function signupNext(){
     email: e.target.elements.email.value,
     phone: e.target.elements.phone.value,
     profileImg: e.target.elements.resume.value,
-    intro: e.target.elements.intro.value
+    intro: e.target.elements.intro.value,
+    userId: userId
     };
 
   e.preventDefault();

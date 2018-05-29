@@ -68,7 +68,7 @@
       <h1>대략적인 상품정보</h1>
         <img class="skill-item__small-img" style="width:100%; height:100px"></img>
         <span>튜터이름:</span> <p class="skill-time__p--tutorname"></p>
-        <p class="skill-item__p--count"></p>
+        <span>관심도:</span><p class="skill-item__p--count"></p>
         <span> 수업이름:</span> <p class="skill-item__p--title"></p>
         <span>가격:</span> <p class="skill-item__p--price"></p>
 
@@ -308,7 +308,7 @@
 
   <template id="skill-register">
 
-    <div class="skill-service">
+    <!-- <div class="skill-service"> -->
         <form class="skill-service-register">
               <div class="skill-service-register--tutorName"></div>
 
@@ -359,7 +359,7 @@
                 <div class="field">
                     <label class="label">위치</label>
                       <div class="control">
-                        <input name="location" class="input" placeholder="간단한 위치소개"></textarea>
+                        <input name="location" class="input" placeholder="간단한 위치소개">
                       </div>
                     </div>
                   </div>
@@ -388,14 +388,14 @@
 
               <div class="field is-grouped">
                   <div class="control">
-                    <button type="submit" class="button is-link">기술등록</button>
+                    <button type="submit"class="button is-link" >기술등록</button>
                   </div>
                   <div class="control">
-                    <button type="button" class="button is-text signup-back-btn" onclick=window.history.back()>취소하기</button>
+                    <button type="button" class="button is-text signup-back-btn">취소하기</button>
                   </div>
               </div>
         </form>
-      </div>
+      <!-- </div> -->
   </template>
 
   <script src="./index.js"></script>
