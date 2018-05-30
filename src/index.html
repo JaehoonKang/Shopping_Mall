@@ -53,7 +53,7 @@
 
       <footer class="footer">
         <div class="footer">
-          <p>끝까지 포지하지 않은 자가 승리한것이다</p>
+          <p>끝까지 포지하지 않은 자가 승리한것이다 by 강재훈</p>
           <address class="address">
             <span>전화: <a href="tel:01042265880">010-4226-5880</a></span>
             <span>이메일: <a href="mailto:jhkang1015@gmail.com?subject=문의사항">jhkang1015@gmail.com</a></span>
@@ -67,7 +67,7 @@
     <div class="skill-item">
       <h1>대략적인 상품정보</h1>
         <img class="skill-item__small-img" style="width:100%; height:100px"></img>
-        <span>튜터이름:</span> <p class="skill-time__p--tutorname"></p>
+        <span>튜터이름:</span> <p class="skill-item__p--tutorname"></p>
         <span>관심도:</span><p class="skill-item__p--count"></p>
         <span> 수업이름:</span> <p class="skill-item__p--title"></p>
         <span>가격:</span> <p class="skill-item__p--price"></p>
@@ -94,12 +94,59 @@
           <p class="skill-item--clicked__section--price"></p>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success">신청하기</button>
+          <button class="button is-success skill-item--clicked__section--apply-btn">신청하기</button>
+          <button class="button">뒤로가기</button>          
         </footer>
       </div>
-
-
     </div>
+  </template>
+
+  <template id="applyForm">
+    <form class="applyForm">
+      <div class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">신청서</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+              <div class="field">
+                  <label class="label">Name</label>
+                  <div class="control">
+                    <input class="input" name="applicant" type="text" placeholder="Text input">
+                  </div>
+                </div>
+              
+              <div class="field">
+                    <label class="label">연락처</label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input class="input is-success" name="cell" type="number" maxlength="12" placeholder="연락처를 남겨주세요">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                      </span>
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </div>
+                    <p class="help is-success">남겨주신 번호로 곧 연락드리겠습니다</p>
+              </div>
+
+              <div class="field">
+                  <label class="label">간단한 요청사항</label>
+                  <div class="control">
+                    <textarea class="textarea" name="reason" placeholder="요청사항을 적어주세요!:)"></textarea>
+                  </div>
+              </div>
+              
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success">신청하기</button>
+            <button class="button">뒤로가기</button>
+          </footer>
+        </div>
+      </div>
+    </form>
   </template>
 
   <template id="introduction">

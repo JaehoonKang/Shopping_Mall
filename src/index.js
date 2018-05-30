@@ -4,6 +4,8 @@ const shopAPI = axios.create({
   baseURL: process.env.API_URL
 });
 
+let currentCount = 0;
+
 const rootEl = document.querySelector(".root");
 
 function login(token) {
@@ -24,7 +26,8 @@ const templates = {
   signUp: document.querySelector('#signup').content,
   intro: document.querySelector('#introduction').content,
   login: document.querySelector('#skill-login').content,
-  signupNext: document.querySelector('#signup-next').content
+  signupNext: document.querySelector('#signup-next').content,
+  applyForm: document.querySelector('#applyForm').content
 };
 
 function render(frag) {
@@ -71,7 +74,6 @@ async function indexPage(){
   
   
   skillRegi.addEventListener('click', e => {
-
     skillRegister(skillRes.data.pop().id);
   });
   
@@ -94,32 +96,33 @@ async function indexPage(){
 
   const res = await shopAPI.get("/products?_expand=detail");
   
+  const skillProduct = skillFrag.querySelector('.skill-product');
+  
   res.data.forEach(product => {
     const frag = document.importNode(templates.skillItem, true);
 
-    const tutorName = frag.querySelector('.skill-time__p--tutorname');
+    const tutorName = frag.querySelector('.skill-item__p--tutorname');
     const productPic = frag.querySelector('.skill-item__small-img');
     const productTitle= frag.querySelector('.skill-item__p--title');
     const productPrice = frag.querySelector('.skill-item__p--price');
-    const productCount = frag.querySelector('.skill-item__p--count');
-    
+    // const productCount = frag.querySelector('.skill-item__p--count');
+    const productDetailButton = frag.querySelector('.skill-item__detail-btn');
 
     tutorName.textContent = product.detail.name;
     productPic.src = product.detail.profileImg;
     productTitle.textContent= product.title;
     productPrice.textContent = `$${product.price}`;
-    productCount.textContent = product.count;
+    // productCount.textContent = product.count;
+    productDetailButton.addEventListener('click', e => {
+      console.log('clicked');
+      console.log(product.id);
+      showProductDetail(product.id);
+    });
 
-    skillFrag.querySelector('.skill-product').appendChild(frag);
+    skillProduct.appendChild(frag);
   }
 );
 
-  const productDetailButton = skillFrag.querySelectorAll('.skill-item__detail-btn');
-  productDetailButton.forEach(box => {
-    box.addEventListener('click', e => {
-      showProductDetail();
-    })
-  });
 
 render(skillFrag);
 }
@@ -128,7 +131,7 @@ render(skillFrag);
 
 async function skillRegister(skillId) {
 
-  console.log(skillId)
+  console.log(skillId);
 
   const num = skillId;
 
@@ -217,12 +220,11 @@ async function signupNext(userId){
 
   indexPage();
   });
-
   render(frag);
 }
 
 
-async function showProductDetail (){
+async function showProductDetail (product){
   
   const frag = document.importNode(templates.skillItemClicked, true);
   const infoRes = await shopAPI.get('/products?_expand=detail');
@@ -239,7 +241,6 @@ async function showProductDetail (){
     const productLocation = sectionEl.querySelector('.skill-item--clicked__section--location');
     const productDescription = sectionEl.querySelector('.skill-item--clicked__section--description');
     
-
     productPic.src = item.productImg;
     tutorName.textContent = item.detail.name;
     productTitle.textContent= item.title;
@@ -249,6 +250,44 @@ async function showProductDetail (){
     productDescription.textContent = item.description;
 
   });
+  const applyButton = frag.querySelector('.skill-item--clicked__section--apply-btn');
+
+
+  applyButton.addEventListener('click', e => {
+    currentCount ++;
+    console.log(currentCount);
+    applyForm(currentCount, product);
+    console.log(product);
+  });
+  
+  render(frag);
+};
+
+
+
+function applyForm(currentCount, product){
+  const frag = document.importNode(templates.applyForm, true);
+
+  const applyForm = frag.querySelector('.applyForm');
+
+  applyForm.addEventListener('submit',async e => {
+    
+    const payload = {
+      applicant: e.target.elements.applicant.value,
+      phone: e.target.elements.cell.value,
+      reason: e.target.elements.reason.value,
+      count: currentCount,
+      productId: product
+    };
+
+    e.preventDefault();
+
+    const res = await shopAPI.post('/forms', payload);
+
+    console.log("곧 연락드릴게요!");
+    indexPage();
+  });
+
 
   render(frag);
 };
@@ -284,10 +323,8 @@ async function loginPage(){
     login(res.data.token);
     indexPage();
   });
-
-
   render(frag);
-}
+};
 
 if (localStorage.getItem("token")) {
   login(localStorage.getItem("token"));
