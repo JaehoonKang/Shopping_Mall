@@ -92,7 +92,7 @@ async function indexPage(){
     console.log("logout completely")
   });
 
-  const res = await shopAPI.get("/products");
+  const res = await shopAPI.get("/products?_expand=detail");
   
   res.data.forEach(product => {
     const frag = document.importNode(templates.skillItem, true);
@@ -104,8 +104,8 @@ async function indexPage(){
     const productCount = frag.querySelector('.skill-item__p--count');
     
 
-    // tutorName.textContent = product.detail.name;
-    // productPic.src = product.detail.profileImg;
+    tutorName.textContent = product.detail.name;
+    productPic.src = product.detail.profileImg;
     productTitle.textContent= product.title;
     productPrice.textContent = `$${product.price}`;
     productCount.textContent = product.count;
@@ -225,30 +225,30 @@ async function signupNext(userId){
 async function showProductDetail (){
   
   const frag = document.importNode(templates.skillItemClicked, true);
-  // const infoRes = await shopAPI.get('/products');
+  const infoRes = await shopAPI.get('/products?_expand=detail');
   
-  // infoRes.data.forEach(item => {
+  infoRes.data.forEach(item => {
 
-  //   const sectionEl = frag.querySelector('.skill-item--clicked__section');
+    const sectionEl = frag.querySelector('.skill-item--clicked__section');
 
-  //   const tutorName = sectionEl.querySelector('.skill-item--clicked__section--tutorname');
-  //   const productPic = sectionEl.querySelector('.skill-item--clicked__section--productImg');
-  //   const productTitle= sectionEl.querySelector('.skill-item--clicked__section--title');
-  //   const productPrice = sectionEl.querySelector('.skill-item--clicked__section--price');
-  //   const productCurriculum = sectionEl.querySelector('.skill-item--clicked__section--curriculum');
-  //   const productLocation = sectionEl.querySelector('.skill-item--clicked__section--location');
-  //   const productDescription = sectionEl.querySelector('.skill-item--clicked__section--description');
+    const tutorName = sectionEl.querySelector('.skill-item--clicked__section--tutorname');
+    const productPic = sectionEl.querySelector('.skill-item--clicked__section--productImg');
+    const productTitle= sectionEl.querySelector('.skill-item--clicked__section--title');
+    const productPrice = sectionEl.querySelector('.skill-item--clicked__section--price');
+    const productCurriculum = sectionEl.querySelector('.skill-item--clicked__section--curriculum');
+    const productLocation = sectionEl.querySelector('.skill-item--clicked__section--location');
+    const productDescription = sectionEl.querySelector('.skill-item--clicked__section--description');
     
 
-  //   productPic.src = item.productImg;
-  //   // tutorName.textContent = item.detail.name;
-  //   productTitle.textContent= item.title;
-  //   productPrice.textContent = `$${item.price}`;
-  //   productCurriculum.textContent = item.curriculum;
-  //   productLocation.textContent = item.location;
-  //   productDescription.textContent = item.description;
+    productPic.src = item.productImg;
+    tutorName.textContent = item.detail.name;
+    productTitle.textContent= item.title;
+    productPrice.textContent = `$${item.price}`;
+    productCurriculum.textContent = item.curriculum;
+    productLocation.textContent = item.location;
+    productDescription.textContent = item.description;
 
-  // });
+  });
 
   render(frag);
 };
