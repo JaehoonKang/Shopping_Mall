@@ -9,6 +9,7 @@ let currentCount = 0;
 const rootEl = document.querySelector(".root");
 
 function login(token) {
+  // localStorage.setItem("userId")
   localStorage.setItem("token", token);
   shopAPI.defaults.headers["Authorization"] = `Bearer ${token}`;
 }
@@ -35,9 +36,7 @@ function render(frag) {
   rootEl.appendChild(frag);
 };
 
-
-
-async function indexPage(){
+async function indexPage(userId){
 
   $(document).ready(function() {
     // main slider
@@ -57,8 +56,14 @@ async function indexPage(){
     }, 7000);
   });
 
+  //indexPage 로그인시 나오는 것!
+  if (localStorage.getItem("token")) {
+    // console.log('token');
 
-  //현재 여기서부터 안되고 있음..ㅠㅠㅠ
+  }else{
+    console.log('logout')
+  }
+  
 
   const skillRes = await shopAPI.get('/details');
   
@@ -74,7 +79,7 @@ async function indexPage(){
   
   
   skillRegi.addEventListener('click', e => {
-    skillRegister(skillRes.data.pop().id);
+    skillRegister(userId);
   });
   
   signUp.addEventListener('click', e => {
@@ -133,7 +138,7 @@ async function skillRegister(skillId) {
 
   console.log(skillId);
 
-  const num = skillId;
+  // const num = skillId;
 
   const frag = document.importNode(templates.skillRegi, true);
 
@@ -152,8 +157,8 @@ async function skillRegister(skillId) {
         category: e.target.elements.select.value,
         curriculum: e.target.elements.curriculum.value,
         location: e.target.elements.location.value,
-        userId: num,
-        detailId: num,
+        userId: skillId,
+        detailId: skillId,
       };
       e.preventDefault();
       
@@ -224,7 +229,7 @@ async function signupNext(userId){
 }
 
 
-async function showProductDetail (product){
+async function showProductDetail(product){
   
   const frag = document.importNode(templates.skillItemClicked, true);
   const infoRes = await shopAPI.get('/products?_expand=detail');
@@ -307,8 +312,6 @@ function skillIntro(){
 async function loginPage(){
 
   const frag = document.importNode(templates.login, true);
-
-
   const formEl = frag.querySelector('.skill-login');
 
   formEl.addEventListener('submit', async e => {
@@ -316,12 +319,19 @@ async function loginPage(){
       username: e.target.elements.username.value,
       password: e.target.elements.password.value
     };
+
     e.preventDefault();
 
     const res = await shopAPI.post("/users/login", payload);
-
+    // console.log(userId);
     login(res.data.token);
-    indexPage();
+    const userRes = await shopAPI.get('/me');
+
+    console.log(userRes.data.id);
+
+    const userId = userRes.data.id;
+
+    indexPage(userId);
   });
   render(frag);
 };
