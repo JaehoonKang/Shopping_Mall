@@ -58,8 +58,7 @@ async function indexPage(userId){
 
   //indexPage 로그인시 나오는 것!
   if (localStorage.getItem("token")) {
-    // console.log('token');
-
+    console.log(userId);
   }else{
     console.log('logout')
   }
@@ -79,6 +78,7 @@ async function indexPage(userId){
   
   
   skillRegi.addEventListener('click', e => {
+    console.log(userId);
     skillRegister(userId);
   });
   
@@ -128,27 +128,24 @@ async function indexPage(userId){
   }
 );
 
-
 render(skillFrag);
 }
 
 
 
 async function skillRegister(skillId) {
-
+  
   console.log(skillId);
+  
+  const reFrag = document.importNode(templates.skillRegi, true);
 
-  // const num = skillId;
-
-  const frag = document.importNode(templates.skillRegi, true);
-
-  const formEl = frag.querySelector('.skill-service-register');
+  const formEl = reFrag.querySelector('.skill-service-register');
 
 
   formEl.addEventListener('submit', async e => {
 
     // const tutorRes = await shopAPI.get('/detail?_expand=user');
-
+    // console.log(skillId);
     const productPayload = {
         title: e.target.elements.title.value,
         productImg: e.target.elements.resume.value,
@@ -158,17 +155,24 @@ async function skillRegister(skillId) {
         curriculum: e.target.elements.curriculum.value,
         location: e.target.elements.location.value,
         userId: skillId,
-        detailId: skillId,
+        detailId: skillId
       };
+
       e.preventDefault();
       
       // console.log(productPayload)
       const productRes = await shopAPI.post('/products', productPayload);
-      // console.log(productRes)
-      indexPage();
-  });
 
-  render(frag);
+      if (localStorage.getItem("token")) {
+        console.log(skillId);
+        indexPage(skillId);
+      }else{
+        console.log('logout')
+        indexPage();
+      };
+    });
+
+  render(reFrag);
 };
 
 async function skillSignUp() {
@@ -233,6 +237,7 @@ async function showProductDetail(product){
   
   const frag = document.importNode(templates.skillItemClicked, true);
   const infoRes = await shopAPI.get('/products?_expand=detail');
+  const applyButton = frag.querySelector('.skill-item--clicked__section--apply-btn');
   
   infoRes.data.forEach(item => {
 
@@ -254,16 +259,19 @@ async function showProductDetail(product){
     productLocation.textContent = item.location;
     productDescription.textContent = item.description;
 
+
+    applyButton.addEventListener('click', e => {
+      currentCount ++;
+      console.log("product:" + product);
+      console.log("currentCount:" + currentCount);
+      applyForm(currentCount, product);
+    });
+
   });
-  const applyButton = frag.querySelector('.skill-item--clicked__section--apply-btn');
 
 
-  applyButton.addEventListener('click', e => {
-    currentCount ++;
-    console.log(currentCount);
-    applyForm(currentCount, product);
-    console.log(product);
-  });
+
+  
   
   render(frag);
 };
@@ -323,11 +331,8 @@ async function loginPage(){
     e.preventDefault();
 
     const res = await shopAPI.post("/users/login", payload);
-    // console.log(userId);
     login(res.data.token);
     const userRes = await shopAPI.get('/me');
-
-    console.log(userRes.data.id);
 
     const userId = userRes.data.id;
 
@@ -339,8 +344,6 @@ async function loginPage(){
 if (localStorage.getItem("token")) {
   login(localStorage.getItem("token"));
 }
-
-
 
 indexPage();
 

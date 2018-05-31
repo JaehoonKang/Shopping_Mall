@@ -1,4 +1,4 @@
-$main-color: skyblue;
+$main-color: white;
 
 
 
@@ -121,10 +121,11 @@ a {
 .skill-item{
   // width:25%;
   // height: 25%;
-  background-color: yellow;
+  border: 1px solid #181818;
   width: 200px;
   height: 350px;
   display: inline-block;
+  margin: 12px;
 
 }
 
